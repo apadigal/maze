@@ -14,14 +14,14 @@ import uk.gov.dwp.maze.exception.InvalidMazeException;
 import java.util.Objects;
 
 public class MazeNode {
-    private Coordinates coordinates;
+    private final Coordinates coordinates;
     private boolean wall;
     private boolean path;
     private boolean exit;
     private boolean start;
     private boolean visited;
     private boolean pathNode;
-    private char mazeChar;
+    private final char mazeChar;
 
     public MazeNode(int positionX, int positionY, char c) {
         this.coordinates = new Coordinates(positionX, positionY);
@@ -65,7 +65,8 @@ public class MazeNode {
     }
 
     public void setVisited(boolean visited) {
-        this.visited = visited;
+        if(!isWall())
+            this.visited = visited;
     }
 
     public Coordinates getCoordinates() {
@@ -81,7 +82,8 @@ public class MazeNode {
     }
 
     public void setPathNode(boolean pathNode) {
-        this.pathNode = pathNode;
+        if(!isWall())
+            this.pathNode = pathNode;
     }
 
     @Override

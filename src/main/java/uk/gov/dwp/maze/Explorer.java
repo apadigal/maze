@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Explorer {
-    Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
-    private Maze maze;
+    private final Maze maze;
     private Coordinates currentCoordinates;
     private Direction currentDirection = Direction.NORTH;
     private boolean exitRequested;
@@ -22,7 +22,7 @@ public class Explorer {
         startJourney();
     }
 
-    private void startJourney(){
+    public void startJourney(){
         if(this.maze == null )
             throw new InvalidMazeException("Maze is not instantiated");
 
@@ -138,14 +138,12 @@ public class Explorer {
 
     public MazeNode getNodeInFrontOfMe(){
         Coordinates newCoordinates = getForwardCoordinates();
-        MazeNode mazeNode = maze.getMazeNode(newCoordinates.getX(), newCoordinates.getY());
-        return mazeNode;
+        return maze.getMazeNode(newCoordinates.getX(), newCoordinates.getY());
     }
 
     public Coordinates getForwardCoordinates(){
         Movement movement = getCurrentDirection().getForward();
-        Coordinates newCoordinates = new Coordinates(this.getCurrentCoordinates().getX() + movement.getX(), this.getCurrentCoordinates().getY() + movement.getY());
-        return newCoordinates;
+        return new Coordinates(this.getCurrentCoordinates().getX() + movement.getX(), this.getCurrentCoordinates().getY() + movement.getY());
     }
 
     public Coordinates getCurrentCoordinates() {

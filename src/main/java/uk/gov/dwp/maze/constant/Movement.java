@@ -16,8 +16,8 @@ public enum Movement {
     BACKWARD (0, -1),
     ;
 
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     Movement(int x, int y) {
         this.x = x;

@@ -29,13 +29,13 @@ public class App {
 
         //Using Auto Explorer to solve the maze.
         log.info("Trying to solve maze using auto explorer (This is basically DFS (Depth First Search) approach).");
-        maze = new Maze("Maze.txt");
+        maze = new Maze("Maze2.txt");
         ExplorerAuto explorerAuto = new ExplorerAuto(maze);
         explorerAuto.solveMaze();
 
         if(maze.isResolved()){
-            log.info("Auto explorer resolved maze successfully...");
             maze.printMaze();
+            log.info("Auto explorer resolved maze successfully...");
         }
         else {
             log.error("This maze is not solvable!!!!");

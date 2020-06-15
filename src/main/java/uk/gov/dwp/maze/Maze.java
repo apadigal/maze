@@ -16,14 +16,13 @@ import java.util.Scanner;
 public class Maze {
     private static final Logger log = LoggerFactory.getLogger(Maze.class);
 
-    private String fileName;
+    private final String fileName;
     private MazeNode[][] mazeNodes;
     private MazeNode startNode;
     private MazeNode exitNode;
     private boolean isResolved;
     private int wallCount;
     private int emptySpaceCount;
-    private boolean validMaze;
 
     public Maze(String fileName){
         this.fileName = fileName;
@@ -37,6 +36,7 @@ public class Maze {
         Scanner scanner = new Scanner(file);
         List<String> mazeLines = new ArrayList<>();
         int mazeCols = 0;
+        //Read all the lines of the file
         while(scanner.hasNextLine()){
             String nextLine = scanner.nextLine();
             if(mazeCols == 0){
@@ -47,13 +47,14 @@ public class Maze {
             }
             mazeLines.add(nextLine);
         }
-
+        //Validate is mazeLines  is empty ?
         if(mazeLines.isEmpty())
             throw new EmptyFileException("Maze file is empty");
 
-        //initialize the mazeNodes array from the mazeLines
+        //Initialize the mazeNodes array from the mazeLines
         mazeNodes = new MazeNode[mazeLines.size()][mazeLines.get(0).length()];
 
+        //Create mazeNodes from the mazeLines
         for(int i=0; i< mazeLines.size(); i++){
             char[] array= mazeLines.get(i).toCharArray();
             for(int y =0 ; y < array.length; y++){
@@ -73,25 +74,21 @@ public class Maze {
                 mazeNodes[i][y] = mazeNode;
             }
         }
+        //Validate is startNode present?
         if(startNode == null)
             throw new InvalidMazeException("Starting point not available in a given maze...");
 
+        //Validate is exitNode present?
         if(exitNode == null)
             throw new InvalidMazeException("Exit point not available in a given maze...");
-
-        validMaze = true;
-    }
-
-    public boolean isValidMaze() {
-        return validMaze;
     }
 
     public MazeNode getMazeNode(int row, int col){
-        if(mazeNodes.length < row)
-            return null;
-        if(mazeNodes[row].length < col)
-            return null;
-        return mazeNodes[row][col];
+        if(row >= 0 && row < mazeNodes.length  &&
+                col >= 0 && col < mazeNodes[row].length) {
+            return mazeNodes[row][col];
+        }
+        return  null;
     }
 
     public String getMazeNodeType(int row, int col){

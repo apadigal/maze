@@ -21,7 +21,7 @@ public enum  Direction {
     EAST(Movement.FORWARD),
     WEST(Movement.BACKWARD),;
 
-    private Movement forward;
+    private final Movement forward;
     private Direction left, right;
 
     Direction(Movement forward) {

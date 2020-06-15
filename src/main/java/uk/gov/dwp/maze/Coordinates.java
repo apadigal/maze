@@ -9,6 +9,8 @@
 package uk.gov.dwp.maze;
 // ---- Import Statements -----------------------------------------------------
 
+import uk.gov.dwp.maze.exception.InvalidMazeException;
+
 import java.util.Objects;
 
 public class Coordinates {
@@ -16,6 +18,8 @@ public class Coordinates {
     private int y;
 
     public Coordinates(int x, int y) {
+        if(x<0 || y<0)
+            throw new InvalidMazeException("Invalid Coordinates : {" + x +", "+ y +"}");
         this.x = x;
         this.y = y;
     }
@@ -24,16 +28,8 @@ public class Coordinates {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     @Override
